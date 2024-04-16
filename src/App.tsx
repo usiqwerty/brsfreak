@@ -8,7 +8,7 @@ import "./css/syle.css";
 let data = [] as Rating[];
 
 const saveFile = async (data: object) => {
-    let blob = new Blob([JSON.stringify(data, null, 2)], {type : 'application/json'})
+    let blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'})
     const a = document.createElement('a');
     a.download = 'brs-export.json';
     a.href = URL.createObjectURL(blob);
@@ -31,7 +31,7 @@ const App = () => {
     }, []);
 
     const handleAddChild = (parentNode: Rating) => {
-        const newNode = new Rating( 'Новый элемент', 1); //{name: 'Новый элемент', children: []};
+        const newNode = new Rating('Новый элемент', 1); //{name: 'Новый элемент', children: []};
         parentNode.subratings.push(newNode);
         setTreeData([...treeData]); // Создаем новый объект массива, чтобы React обнаружил изменения
     };
@@ -56,7 +56,7 @@ const App = () => {
 
     };
 
-    function handleSetField(field:string, value:any, node:Rating, root= treeData){
+    function handleSetField(field: string, value: any, node: Rating, root = treeData) {
         console.log(field, value, node);
         root.forEach((sub) => {
             if (sub === node) {
@@ -65,24 +65,23 @@ const App = () => {
                         sub.name = value;
                         break;
                     }
-                    case "weight":{
-                        sub.weight = Number.parseFloat(value) ||null!;
+                    case "weight": {
+                        sub.weight = Number.parseFloat(value) || null!;
                         break;
                     }
-                    case "self-val":{
-                        sub.self_value = Number.parseInt(value) || null! ;
+                    case "self-val": {
+                        sub.self_value = Number.parseInt(value) || null!;
                         break;
                     }
-                    case "max-val":{
-                        sub.self_maxval = Number.parseInt(value) || null! ;
+                    case "max-val": {
+                        sub.self_maxval = Number.parseInt(value) || null!;
                         break;
                     }
-                    case "self-banned":{
-                        sub.self_banned = Number.parseInt(value) || null! ;
+                    case "self-banned": {
+                        sub.self_banned = Number.parseInt(value) || null!;
                         break;
                     }
-                    default:
-                    {
+                    default: {
                         console.log(field, value, node);
                     }
                 }
@@ -93,16 +92,18 @@ const App = () => {
             }
         })
     }
-    function save(){
+
+    function save() {
         localStorage.setItem('brs-tree', JSON.stringify(treeData));
         alert("Saved")
     }
-    function createSubject(){
+
+    function createSubject() {
         treeData.push(new Rating("Новый предмет", 1))
         setTreeData([...treeData]);
     }
 
-    function selectSubject(e:any){
+    function selectSubject(e: any) {
         setSubjectIndex(Number.parseInt(e.target.value));
     }
 
@@ -111,22 +112,21 @@ const App = () => {
         const reader = new FileReader()
         reader.onload = async (e) => {
             const text = (e.target!.result)
-            if (typeof text ==='string') {
+            if (typeof text === 'string') {
                 const d = JSON.parse(text).map((item: Rating) => {
                     return parse(item)
                 })
                 setTreeData(d);
                 alert("File imported");
-            }
-            else
+            } else
                 alert('Something went wrong')
         };
-        let fi=(e.target as HTMLInputElement);
+        let fi = (e.target as HTMLInputElement);
         reader.readAsText(fi.files![0])
     }
 
     useEffect(() => {
-        setJob(Math.min (target_brs - treeData[subjectIndex].value(), treeData[subjectIndex].free()));
+        setJob(Math.min(target_brs - treeData[subjectIndex].value(), treeData[subjectIndex].free()));
 
     }, [subjectIndex, target_brs, treeData]);
     if (treeData[subjectIndex] === undefined)
@@ -134,31 +134,39 @@ const App = () => {
 
     return (
         <>
-            <h1>brsfreak</h1>
+            <header>
+                <h1>brsfreak</h1>
+                <p>Калькулятор для балльно-рейтинговой системы</p>
+            </header>
             <div id={"menu"}>
-                <select onChange={(e)=>selectSubject(e)}>
-                    {treeData.map((each, index)=><option value={index}>{each.name}</option>)}
+                <select onChange={(e) => selectSubject(e)}>
+                    {treeData.map((each, index) => <option value={index}>{each.name}</option>)}
                 </select>
                 <button onClick={createSubject}>Добавить предмет</button>
                 <button onClick={save}>Сохранить</button>
-                <button onClick={()=>saveFile(treeData)}>Экспорт в файл...</button>
+                <button onClick={() => saveFile(treeData)}>Экспорт в файл...</button>
                 <button id={'import-btn'}>
                     <label htmlFor="fileimport" className="btn">Загрузить файл...</label>
-                    <input id={"fileimport"} type={"file"} onChange={(e)=>importFile(e)}/>
+                    <input id={"fileimport"} type={"file"} onChange={(e) => importFile(e)}/>
                 </button>
 
             </div>
 
             <div id={"target-input"}>
                 <span>
-                    Цель <input size={3} name={"target_brs"} onChange={(e)=>{setTarget_brs(Number.parseInt(e.target.value))}} value={target_brs}/>
+                    Цель <input size={3} name={"target_brs"} onChange={(e) => {
+                    setTarget_brs(Number.parseInt(e.target.value))
+                }} value={target_brs}/>
                 </span>
                 <span>
                     Необходимо ещё набрать {job}
+
                 </span>
+                {job + treeData[subjectIndex].value() < target_brs ?
+                    <span id={'warning'}>Внимание, цель слишком высокая! Максимально возможный
+                        балл: <b>{job + treeData[subjectIndex].value()}</b></span> : <></>}
             </div>
-            {job+treeData[subjectIndex].value()<target_brs?
-                <p>Внимание, цель слишком высокая! Максимально возможный балл <b>{job+treeData[subjectIndex].value()}</b></p>:<></>}
+
             <div id={"ratings-container"}>
                 <BRSRating
                     key={subjectIndex}
@@ -166,7 +174,7 @@ const App = () => {
                     onAddChild={handleAddChild}
                     onDelete={handleDelete}
                     onEdit={handleSetField}
-                    job = {job}
+                    job={job}
                 />
             </div>
         </>

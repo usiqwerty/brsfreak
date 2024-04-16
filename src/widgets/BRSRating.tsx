@@ -40,7 +40,8 @@ export function BRSRating({node, onAddChild, onDelete, onEdit, job}: {
                     <div>
                         Значение: <input value={node.self_value}
                                          onChange={(e) => onEdit('self-val', e.target.value, node)} size={3}/>
-                         / <input value={node.maxval()} onChange={(e) => onEdit('max-val', e.target.value, node)} size={3}/>
+                        / <input value={node.maxval()} onChange={(e) => onEdit('max-val', e.target.value, node)}
+                                 size={3}/>
                         (нужно еще {job})
                         <div>
                             -<input value={node.banned()}
