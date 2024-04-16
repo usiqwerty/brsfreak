@@ -2,7 +2,9 @@ import React from 'react';
 import "../css/syle.css";
 import {Rating} from "../Rating";
 import "../css/BRSRating.css"
+import "../css/mobile.css";
 import {RatingHeader} from "./RatingHeader";
+const truncateToTwo = (num:number) => Math.floor(num * 100) / 100;
 
 export function BRSRating({node, onAddChild, onDelete, onEdit, job}: {
     node: Rating,
@@ -42,7 +44,7 @@ export function BRSRating({node, onAddChild, onDelete, onEdit, job}: {
                                          onChange={(e) => onEdit('self-val', e.target.value, node)} size={3}/>
                         / <input value={node.maxval()} onChange={(e) => onEdit('max-val', e.target.value, node)}
                                  size={3}/>
-                        (нужно еще {job})
+                        (нужно еще {truncateToTwo(job)})
                         <div>
                             -<input value={node.banned()}
                                     onChange={(e) => onEdit('self-banned', e.target.value, node)} size={3}/>

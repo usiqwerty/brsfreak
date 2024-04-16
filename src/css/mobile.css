@@ -1,0 +1,17 @@
+@media screen and (max-width: 600px) {
+    #ratings-container{
+        margin:2%;
+        width: 96%;
+    }
+    .rating-content{
+        padding: 0;
+    }
+    .brs-rating{
+        margin-left: 3%;
+        width: 96%;
+        min-width: 0;
+    }
+    #target-input{
+        display: grid;
+    }
+}
