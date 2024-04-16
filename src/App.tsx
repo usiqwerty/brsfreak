@@ -133,28 +133,32 @@ const App = () => {
         return <></>
 
     return (
-        <div>
+        <>
             <h1>brsfreak</h1>
-            <div>
+            <div id={"menu"}>
                 <select onChange={(e)=>selectSubject(e)}>
                     {treeData.map((each, index)=><option value={index}>{each.name}</option>)}
                 </select>
                 <button onClick={createSubject}>Добавить предмет</button>
-                <button onClick={save}>Save</button>
-                <button onClick={()=>saveFile(treeData)}>Export...</button>
-                <div id={'import-btn'}>
-                    <label htmlFor="fileimport" className="btn">Import...</label>
+                <button onClick={save}>Сохранить</button>
+                <button onClick={()=>saveFile(treeData)}>Экспорт в файл...</button>
+                <button id={'import-btn'}>
+                    <label htmlFor="fileimport" className="btn">Загрузить файл...</label>
                     <input id={"fileimport"} type={"file"} onChange={(e)=>importFile(e)}/>
-                </div>
+                </button>
 
             </div>
 
-            <div>
-                Цель <input name={"target_brs"} onChange={(e)=>{setTarget_brs(Number.parseInt(e.target.value))}} value={target_brs}/><br />
-                Необходимо ещё набрать {job}
-                {job+treeData[subjectIndex].value()<target_brs?
-                    <p>Внимание! Максимально возможный балл <b>{job+treeData[subjectIndex].value()}</b></p>:<></>}
+            <div id={"target-input"}>
+                <span>
+                    Цель <input size={3} name={"target_brs"} onChange={(e)=>{setTarget_brs(Number.parseInt(e.target.value))}} value={target_brs}/>
+                </span>
+                <span>
+                    Необходимо ещё набрать {job}
+                </span>
             </div>
+            {job+treeData[subjectIndex].value()<target_brs?
+                <p>Внимание, цель слишком высокая! Максимально возможный балл <b>{job+treeData[subjectIndex].value()}</b></p>:<></>}
             <div id={"ratings-container"}>
                 <BRSRating
                     key={subjectIndex}
@@ -165,7 +169,7 @@ const App = () => {
                     job = {job}
                 />
             </div>
-        </div>
+        </>
     );
 };
 

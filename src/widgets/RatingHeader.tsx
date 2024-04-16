@@ -1,5 +1,5 @@
 import React from "react";
-
+const truncateToTwo = (num:number) => Math.floor(num * 100) / 100;
 export function RatingHeader(props: {
     job: number,
     value: string,
@@ -13,7 +13,7 @@ export function RatingHeader(props: {
         <input value={props.value} className={"header-input long-input"}
                onChange={props.onChange}/>
         <span className={"header-eval"}>
-                    <span>{props.number}x</span>
+                    <span>{truncateToTwo(props.number)}x</span>
                     <input value={props.value1} className={"header-input"}
                            onChange={props.onChange1}/>
 
