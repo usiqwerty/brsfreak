@@ -1,51 +1,13 @@
-.brs-rating{
-    border: 1px solid black;
-    margin: 10px;
-    min-width:500px;
-    width: fit-content;
-}
-.rating-header{
-    padding: 5px;
-}
-.active{
-    background-color: beige;
-}
-.inactive{
-    background-color: lightgray;
-}
-.add-new{
-    width:100px;
-    margin-right: auto;
-    margin-left: auto;
-}
 #ratings-container{
-    //m-width: 500px;
+//m-width: 500px;
 }
-.header-input{
-    background: inherit;
-    width: 3em;
-    min-width: 1em;
-    border: none;
-}
-.long-input{
-    width:80%;
-}
-.right-head{
-    width: 20%;
-}
-.rating-content{
-    padding:10px;
-}
+
 #fileimport {
     display: none;
 }
-button, .button, select{
+#import-btn{
     background: lightgray;
     border-radius: 5px;
     border: 1px solid lightgray;
     width: fit-content;
-}
-button, .button{
-    padding: 3px;
-    margin: 3px;
 }

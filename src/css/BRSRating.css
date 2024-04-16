@@ -1,0 +1,50 @@
+.brs-rating{
+    border: 1px solid black;
+    margin: 10px;
+    min-width:500px;
+    width: fit-content;
+}
+
+.rating-header{
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr auto 50px;
+}
+
+.active{
+    background-color: beige;
+}
+
+.inactive{
+    background-color: lightgray;
+}
+
+.add-new{
+    width:100px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.header-input{
+
+    background: inherit;
+    width: 3em;
+    min-width: 1em;
+    border: none;
+}
+
+.long-input{
+    width:80%;
+}
+
+.header-eval{
+    grid-column: 2;
+    //width: 20%;
+}
+
+.rating-content{
+    padding:10px;
+}
+.remove-btn{
+    grid-column: 3;
+}

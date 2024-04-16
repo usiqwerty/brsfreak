@@ -134,6 +134,7 @@ const App = () => {
 
     return (
         <div>
+            <h1>brsfreak</h1>
             <div>
                 <select onChange={(e)=>selectSubject(e)}>
                     {treeData.map((each, index)=><option value={index}>{each.name}</option>)}
@@ -141,7 +142,7 @@ const App = () => {
                 <button onClick={createSubject}>Добавить предмет</button>
                 <button onClick={save}>Save</button>
                 <button onClick={()=>saveFile(treeData)}>Export...</button>
-                <div className={'button'}>
+                <div id={'import-btn'}>
                     <label htmlFor="fileimport" className="btn">Import...</label>
                     <input id={"fileimport"} type={"file"} onChange={(e)=>importFile(e)}/>
                 </div>
