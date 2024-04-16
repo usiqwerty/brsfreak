@@ -1,10 +1,22 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {BRSRating} from "./widgets/BRSRating";
 import {Rating} from "./Rating";
-import {fetchRating} from "./api";
+import {fetchRating, parse} from "./api";
+
 import "./css/syle.css";
 // Пример данных дерева
 let data = [] as Rating[];
+
+const saveFile = async (data: object) => {
+    let blob = new Blob([JSON.stringify(data, null, 2)], {type : 'application/json'})
+    const a = document.createElement('a');
+    a.download = 'brs-export.json';
+    a.href = URL.createObjectURL(blob);
+    a.addEventListener('click', (e) => {
+        setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+    });
+    a.click();
+};
 
 
 // Использование редактора дерева
@@ -94,6 +106,25 @@ const App = () => {
         setSubjectIndex(Number.parseInt(e.target.value));
     }
 
+    const importFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
+        const reader = new FileReader()
+        reader.onload = async (e) => {
+            const text = (e.target!.result)
+            if (typeof text ==='string') {
+                const d = JSON.parse(text).map((item: Rating) => {
+                    return parse(item)
+                })
+                setTreeData(d);
+                alert("File imported");
+            }
+            else
+                alert('Something went wrong')
+        };
+        let fi=(e.target as HTMLInputElement);
+        reader.readAsText(fi.files![0])
+    }
+
     useEffect(() => {
         setJob(Math.min (target_brs - treeData[subjectIndex].value(), treeData[subjectIndex].free()));
 
@@ -109,6 +140,12 @@ const App = () => {
                 </select>
                 <button onClick={createSubject}>Добавить предмет</button>
                 <button onClick={save}>Save</button>
+                <button onClick={()=>saveFile(treeData)}>Export...</button>
+                <div className={'button'}>
+                    <label htmlFor="fileimport" className="btn">Import...</label>
+                    <input id={"fileimport"} type={"file"} onChange={(e)=>importFile(e)}/>
+                </div>
+
             </div>
 
             <div>

@@ -1,6 +1,6 @@
 import {Rating} from "./Rating";
 
-function parse(json:Rating): Rating{
+export function parse(json:Rating): Rating{
     let x = new Rating(json.name, json.weight, json.self_maxval, json.self_value, json.self_banned);
 
     let subs = json.subratings.map((each:Rating)=>parse(each));
