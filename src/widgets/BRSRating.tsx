@@ -30,7 +30,7 @@ export function BRSRating({node, onAddChild, onDelete, onEdit, job}: {
 
             <div className={'rating-content'}>
                 {node.subratings.length ? (
-                        <div style={{marginLeft: '20px'}}>
+                        <div>
                             {node.subratings.map((child: Rating, index: number) => (
                                 <BRSRating key={index} node={child} onAddChild={onAddChild} onDelete={onDelete}
                                            onEdit={onEdit} job={job * child.free() / node.free()}/>
