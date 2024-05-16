@@ -1,9 +1,7 @@
 import React, {useEffect, useMemo, useState} from "react";
 import {Rating} from "../Rating";
 import {fetchRating, parse} from "../api";
-import {BRSRating} from "../widgets/BRSRating";
 import JobViewer from "../widgets/JobViewer";
-import jobViewer from "../widgets/JobViewer";
 import ViewerMenu from "../widgets/ViewerMenu";
 
 function Viewer() {
