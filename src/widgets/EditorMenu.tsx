@@ -1,5 +1,6 @@
 import React from "react";
 import {Rating} from "../Rating";
+import {useNavigate} from "react-router-dom";
 
 function EditorMenu({treeData, createSubject, save, saveFile, selectSubject, importFile}: {
     treeData: Rating[],
@@ -9,6 +10,7 @@ function EditorMenu({treeData, createSubject, save, saveFile, selectSubject, imp
     selectSubject: any,
     importFile: any
 }) {
+    const navigate= useNavigate();
     return <div id={"menu"}>
         <select onChange={(e) => selectSubject(e)}>
             {treeData.map((each, index) => <option value={index} key={index}>{each.name}</option>)}
@@ -20,7 +22,9 @@ function EditorMenu({treeData, createSubject, save, saveFile, selectSubject, imp
             <label htmlFor="fileimport" className="btn">Загрузить файл...</label>
             <input id={"fileimport"} type={"file"} onChange={(e) => importFile(e)}/>
         </button>
-
+        <button onClick={()=>navigate("/")}>
+            Просмотр
+        </button>
     </div>;
 }
 
