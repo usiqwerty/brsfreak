@@ -1,5 +1,5 @@
 @media screen and (max-width: 600px) {
-    #ratings-container{
+    #ratings-container, #viewer-container{
         margin:2%;
         width: 96%;
     }
@@ -10,6 +10,9 @@
         margin-left: 3%;
         width: 96%;
         min-width: 0;
+    }
+    #job-viewer{
+        width: 96%;
     }
     #target-input{
         display: grid;
