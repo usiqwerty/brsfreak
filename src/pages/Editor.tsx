@@ -60,7 +60,7 @@ function Editor() {
                         break;
                     }
                     case "self-val": {
-                        sub.self_value = Number.parseInt(value) || null!;
+                        sub.self_value =value? Number.parseInt(value) : null!;
                         break;
                     }
                     case "max-val": {
