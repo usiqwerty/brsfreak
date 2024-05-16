@@ -62,7 +62,7 @@ function Viewer() {
         </div>
 
         <div id={"viewer-container"}>
-            <JobViewer rating={treeData[subjectIndex]} target={job} />
+            <JobViewer rating={treeData[subjectIndex]} target={target_brs} />
         </div>
     </>;
 }
