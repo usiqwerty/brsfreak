@@ -7,7 +7,7 @@ import Viewer from "./pages/Viewer";
 const App = () => {
     return (
         <>
-            <header>
+            <header id={"main-header"}>
                 <h1>brsfreak</h1>
                 <p>Калькулятор для балльно-рейтинговой системы</p>
             </header>

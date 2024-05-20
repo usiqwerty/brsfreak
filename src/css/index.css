@@ -54,7 +54,7 @@ input, button{
     padding: 3px;
     border: 2px solid lightgray;
 }
-header{
+#main-header{
     margin-left: 50px;
 }
 #warning{
