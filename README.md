@@ -1,46 +1,34 @@
-# Getting Started with Create React App
+# BRS freak
+Калькулятор для балльно-рейтинговой системы
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Идея
+Позволяет с помощью коэффициентов, по которым формируется оценка, определить,
+сколько баллов по каждому виду работ нужно получить, чтобы набрать нужный балл.
 
-## Available Scripts
+## Лирика
+Представьте себе студета. Он не хочет ходить на пары и писать работы, однако, 
+чтобы не вылететь из ВУЗа ему нужно получать баллы. 
+К сожалению, учебное заведение студента исользует довольно замысловатые схемы 
+формирования
+оценок - множество разных коэффициентов для разных видов активностей.
 
-In the project directory, you can run:
+К счастью, если знать формулу для оценки по предмету, можно не только 
+посчитать саму эту оценку, но и вычислить, по каким заданиям нужно набрать
+ещё баллы.
 
-### `npm start`
+Так, BRSfreak позволяет ленивому студенту заранее узнать сколько баллов
+по каждому виду работ ему нужно получить, чтобы, например, закрыть сессию,
+или (если задать такую цель) получить "отлично" в семестре.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| Так вуз показывает баллы студент | а вот так - редактор BRSfreak                |
+|----------------------------------|----------------------------------------------|
+| <img src="docs/vuz-brs.png" width="250px"/>            | <img src="docs/brsfreak.png" width="400px"/> |
+В результате сервис пишет, сколько баллов нужно набрать по кажному заданию:
+<img src="docs/result.png" width="500px"/>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Запуск и сборка
+`npm start` - запуск локально
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+`npm run build` - сборка проекта

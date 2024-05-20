@@ -1,6 +1,6 @@
 import React from 'react';
 import "../css/syle.css";
-import {Rating} from "../Rating";
+import {Rating} from "../tools/Rating";
 import "../css/BRSRating.css"
 import "../css/mobile.css";
 import {RatingHeader} from "./RatingHeader";

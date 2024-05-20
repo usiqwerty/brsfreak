@@ -1,5 +1,5 @@
 import React from "react";
-import {Rating} from "../Rating";
+import {Rating} from "../tools/Rating";
 import {useNavigate} from "react-router-dom";
 
 function ViewerMenu({treeData, selectSubject, importFile}: {

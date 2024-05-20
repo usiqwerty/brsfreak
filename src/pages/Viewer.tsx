@@ -1,9 +1,11 @@
 import React, {useEffect, useMemo, useState} from "react";
-import {Rating} from "../Rating";
-import {fetchRating, find_attendance_node, handleSetField, importFile, parse, saveToLocalStorage} from "../api";
+import {Rating} from "../tools/Rating";
+import {fetchRating} from "../tools/api";
 import JobViewer from "../widgets/JobViewer";
 import ViewerMenu from "../widgets/ViewerMenu";
-import Attendance from "../widgets/Attendance";
+import AttendanceEditor from "../widgets/AttendanceEditor";
+import {importFile, saveToLocalStorage} from "../tools/storage";
+import {find_attendance_node, handleSetField} from "../tools/editor";
 
 
 function Viewer() {
@@ -51,12 +53,12 @@ function Viewer() {
         <div id={"viewer-container"}>
             <JobViewer rating={treeData[subjectIndex]} target={target_brs}/>
             {attendance_node?
-                <Attendance onEdit={(dates: any)=> {
+                <AttendanceEditor onEdit={(dates: any)=> {
                     handleSetField('attended', dates, attendance_node, treeData[subjectIndex].subratings, setTreeData, treeData);
                     saveToLocalStorage(treeData)
                 }
                 }
-                            node={attendance_node}
+                                  node={attendance_node}
                 />:
                 ""}
 

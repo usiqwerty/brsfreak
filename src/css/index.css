@@ -17,10 +17,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 * {
-    font-family: "Century Gothic";
+    font-family: "Century Gothic", sans-serif;
 }
 h1{
-    font-family: "Century";
+    font-family: "Century", serif;
     font-size: 28pt;
     font-weight: bold;
 }

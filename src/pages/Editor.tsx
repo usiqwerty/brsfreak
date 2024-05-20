@@ -1,10 +1,12 @@
 import {BRSRating} from "../widgets/BRSRating";
 import React, {useEffect, useMemo, useState} from "react";
-import {Rating} from "../Rating";
-import {fetchRating, find_attendance_node, handleSetField, importFile, saveFile, saveToLocalStorage} from "../api";
+import {Rating} from "../tools/Rating";
+import {fetchRating} from "../tools/api";
 
 import "../css/syle.css";
 import EditorMenu from "../widgets/EditorMenu";
+import {importFile, saveFile, saveToLocalStorage} from "../tools/storage";
+import {handleSetField} from "../tools/editor";
 
 let data = [] as Rating[];
 
@@ -15,7 +17,7 @@ function Editor() {
     const [job, setJob] = useState(100)
 
     function createSubject() {
-        treeData.push(new Rating("Новый предмет", 1))
+        treeData.push(new Rating("Новый предмет", 1));
         setTreeData([...treeData]);
     }
 
@@ -26,9 +28,7 @@ function Editor() {
     const handleDelete = (nodeToDelete: Rating) => {
         remove(treeData, nodeToDelete);
         setTreeData([...treeData]);
-
     };
-
 
     const handleAddChild = (parentNode: Rating) => {
         const newNode = new Rating('Новый элемент', 1); //{name: 'Новый элемент', children: []};
@@ -58,12 +58,12 @@ function Editor() {
     }, []);
 
     if (treeData[subjectIndex] === undefined)
-        return <></>
+        return <>Произошла ошибка (данные предмета undefined)</>
 
     return <>
         <EditorMenu createSubject={createSubject}
-                    importFile={(event:any) =>importFile(event, setTreeData)}
-                    save={()=> {
+                    importFile={(event: any) => importFile(event, setTreeData)}
+                    save={() => {
                         saveToLocalStorage(treeData);
                         alert("Saved");
                     }}
@@ -91,7 +91,8 @@ function Editor() {
                 node={treeData[subjectIndex]}
                 onAddChild={handleAddChild}
                 onDelete={handleDelete}
-                onEdit={(field:string, value:boolean, node:Rating, root= treeData)=>handleSetField(field, value, node, root, setTreeData, treeData)}
+                onEdit={(field: string, value: boolean, node: Rating, root = treeData) =>
+                    handleSetField(field, value, node, root, setTreeData, treeData)}
                 job={job}
             />
         </div>

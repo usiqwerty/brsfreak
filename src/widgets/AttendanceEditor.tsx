@@ -3,15 +3,15 @@ import React, {useState} from "react";
 import "../css/attendance.css";
 import '@natscale/react-calendar/dist/main.css';
 
-import {Rating} from "../Rating";
+import {Rating} from "../tools/Rating";
 
-function Attendance({onEdit, node}: { onEdit: any, node: Rating }) {
+function AttendanceEditor({onEdit, node}: { onEdit: any, node: Rating }) {
     const [dates, setDates] = useState([...node.attended]);
-    console.log(node);
+
     return <div id={"attendance"}>
         <Calendar onChange={v => {
             setDates(v as Date[]);
-            onEdit(v);
+            onEdit(v)
         }}
                   isMultiSelector={true}
                   value={dates}
@@ -19,4 +19,4 @@ function Attendance({onEdit, node}: { onEdit: any, node: Rating }) {
     </div>
 }
 
-export default Attendance;
+export default AttendanceEditor;

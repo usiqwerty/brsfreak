@@ -1,4 +1,4 @@
-import {Rating} from "../Rating";
+import {Rating} from "../tools/Rating";
 import {useEffect, useState} from "react";
 import Task from "./Task";
 import "../css/syle.css";
