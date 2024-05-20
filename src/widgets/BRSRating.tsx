@@ -4,7 +4,8 @@ import {Rating} from "../Rating";
 import "../css/BRSRating.css"
 import "../css/mobile.css";
 import {RatingHeader} from "./RatingHeader";
-const truncateToTwo = (num:number) => Math.floor(num * 100) / 100;
+
+const truncateToTwo = (num: number) => Math.floor(num * 100) / 100;
 
 export function BRSRating({node, onAddChild, onDelete, onEdit, job}: {
     node: Rating,
@@ -34,22 +35,34 @@ export function BRSRating({node, onAddChild, onDelete, onEdit, job}: {
                 {node.subratings.length ? (
                         <div>
                             {node.subratings.map((child: Rating, index: number) => (
-                                <BRSRating key={index} node={child} onAddChild={onAddChild} onDelete={onDelete}
+                                <BRSRating key={index}
+                                           node={child}
+                                           onAddChild={onAddChild}
+                                           onDelete={onDelete}
                                            onEdit={onEdit}
-                                           job={node.free()? job * child.free() / node.free(): 0}/>
+                                           job={node.free() ? job * child.free() / node.free() : 0}/>
                             ))}
                         </div>
                     ) :
                     <div>
                         Значение: <input value={node.self_value}
-                                         onChange={(e) => onEdit('self-val', e.target.value, node)} size={3}/>
-                        / <input value={node.maxval()} onChange={(e) => onEdit('max-val', e.target.value, node)}
+                                         onChange={(e) => onEdit('self-val', e.target.value, node)}
+                                         size={3}
+                                         disabled={node.attendable}/>
+                        / <input value={node.maxval()}
+                                 onChange={(e) => onEdit('max-val', e.target.value, node)}
                                  size={3}/>
                         (нужно еще {truncateToTwo(job)})
                         <div>
                             -<input value={node.banned()}
                                     onChange={(e) => onEdit('self-banned', e.target.value, node)} size={3}/>
                         </div>
+                        <span>
+                            <input type={"checkbox"}
+                                   checked={node.attendable}
+                                   onChange={e => onEdit('attendable', e.target.checked, node)}/>
+                            Посещаемость
+                        </span>
                     </div>
                 }
             </div>

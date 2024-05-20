@@ -6,9 +6,12 @@ class Rating {
     self_maxval: number;
     self_value: number;
     self_banned: number
+    attended: Date[];
+    attendable: boolean
+
     static count = 0;
 
-    constructor(name: string, weight: number, maxval = 100, value = 0, banned = 0) {
+    constructor(name: string, weight: number, maxval = 100, value = 0, banned = 0, attended:Date[] = [], attendable = false) {
         this.id = Rating.count++;
         this.subratings = [];
         this.name = name;
@@ -16,6 +19,8 @@ class Rating {
         this.self_maxval = maxval;
         this.self_value = value;
         this.self_banned = banned;
+        this.attended = attended;
+        this.attendable = attendable;
     }
 
     value() {
