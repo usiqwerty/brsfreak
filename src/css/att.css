@@ -1,12 +1,3 @@
-#attendance {
-    max-width: 500px;
-    /*width:fit-content;*/
-    padding: 5px;
-    margin: 10px;
-    /*margin-left:auto;*/
-    /*margin-right: auto;*/
-
-}
 
 .rc_root, .rc_shortcut_cal_root {
     --rc-color-transparent: transparent;
@@ -22,8 +13,8 @@
     --rc-hsl-accent-hue: 0deg;
     --rc-hsl-accent-saturation: 77%;
     --rc-hsl-accent-light: 47%;
-    --rc-color-primary: hsl(0, 0%, 47%);
-    --rc-color-primary-light: hsla(0, 0%, 47%, 50%);
+    --rc-color-primary: #1c7ed4;
+    --rc-color-primary-light: #1C7ED466;
     --rc-color-primary-lighter: #1C7ED414;
     --rc-color-accent: #D41C1CFF;
     --rc-color-accent-light: #D41C1C66;
@@ -81,13 +72,11 @@
 .rc_root {
     background-color: var(--rc-color-bg-light);
     border: 1px solid var(--rc-color-border-root);
-    font-size: 1rem;
+    font-size: 1rem
 }
 
 .rc, .rc_root {
-    position: relative;
-    width:100%;
-    height: 300px;
+    position: relative
 }
 
 .rc_root.rc_dual .rc + .rc {
@@ -294,8 +283,7 @@
 }
 
 .rc_body-days-of-month .rc_body-cell.rc_highlight:not(.rc_disabled) button, .rc_body-days-of-month .rc_body-cell.rc_today:not(.rc_disabled) button {
-    border: 1px solid;
-    border-radius:30px;
+    border-bottom: 1px solid
 }
 
 .rc_body-days-of-month .rc_body-cell.rc_selected .rc_body-cell_value {
@@ -347,7 +335,4 @@
 
 .rc_body-days-of-month .rc_body-cell.rc_disabled.rc_wknd button:before, .rc_body-days-of-month .rc_body-cell.rc_wknd button:before {
     background-color: var(--rc-color-bg-disabled-weekend-cross)
-}
-.rc_body-cell_value{
-    border-radius:30px;
 }
