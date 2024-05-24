@@ -40,9 +40,9 @@ export async function importFile(e: React.ChangeEvent<HTMLInputElement>, setTree
 
 }
 
-export function saveToServer(treeData: Rating[], password: string) {
+export function saveToServer(treeData: Rating[], username:string, password: string) {
     console.log(treeData);
-    sync_export("0", treeData, password);
+    sync_export(username, treeData, password);
     // localStorage.setItem('brs-tree', JSON.stringify(treeData));
 
 

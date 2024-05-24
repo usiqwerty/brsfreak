@@ -34,6 +34,7 @@ function Editor() {
     const [target_brs, setTarget_brs] = useState(80);
     const [job, setJob] = useState(100)
     const [password, setPassword] = useState(null! as string);
+    const [username, setUsername] = useState(null! as string);
     function createSubject() {
         treeData.push(new Rating("Новый предмет", 1));
         setTreeData([...treeData]);
@@ -74,16 +75,17 @@ function Editor() {
     }, [subjectIndex, target_brs, treeData]);
     useMemo(async () => {
         const pass = localStorage.getItem("brsfreak-pass")!;
-        const username = localStorage.getItem("brsfreak-username")!;
+        const new_username = localStorage.getItem("brsfreak-username")!;
         setPassword(pass);
-        setTreeData(await fetchRating(1000, username, pass));
+        setUsername(new_username);
+        setTreeData(await fetchRating(1000, new_username, pass));
     }, []);
 
     if (treeData[subjectIndex] === undefined)
         return <EditorMenu createSubject={createSubject}
                            importFile={(event: any) => importFile(event, setTreeData)}
                            save={() => {
-                               saveToServer(treeData, password);
+                               saveToServer(treeData, username, password);
                                alert("Saved");
                            }}
                            saveFile={saveFile}
@@ -95,7 +97,7 @@ function Editor() {
         <EditorMenu createSubject={createSubject}
                     importFile={(event: any) => importFile(event, setTreeData)}
                     save={() => {
-                        saveToServer(treeData, password);
+                        saveToServer(treeData, username, password);
                         alert("Saved");
                     }}
                     saveFile={saveFile}

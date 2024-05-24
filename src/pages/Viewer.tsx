@@ -32,7 +32,7 @@ function Viewer() {
     const [target_brs, setTarget_brs] = useState(80);
     const [job, setJob] = useState(100)
     const [password, setPassword] = useState(null! as string);
-
+    const [username, setUsername] = useState(null! as string);
     function selectSubject(e: any) {
         setSubjectIndex(Number.parseInt(e.target.value));
     }
@@ -43,9 +43,10 @@ function Viewer() {
     }, [subjectIndex, target_brs, treeData]);
     useMemo(async () => {
         const pass = localStorage.getItem("brsfreak-pass")!;
-        const username = localStorage.getItem("brsfreak-username")!;
+        const new_username = localStorage.getItem("brsfreak-username")!;
         setPassword(pass);
-        setTreeData(await fetchRating(1000, username, pass));
+        setUsername(new_username);
+        setTreeData(await fetchRating(1000, new_username, pass));
     }, []);
 
     if (treeData[subjectIndex] === undefined)
@@ -77,7 +78,7 @@ function Viewer() {
             {attendance_node ?
                 <AttendanceEditor onEdit={(dates: any) => {
                     handleSetField('attended', dates, attendance_node, treeData[subjectIndex].subratings, setTreeData, treeData);
-                    saveToServer(treeData, password)
+                    saveToServer(treeData, username, password)
                 }
                 }
                                   node={attendance_node}
