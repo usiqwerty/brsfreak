@@ -38,10 +38,10 @@ export function parse(json: Rating): Rating {
     return x;
 }
 
-export async function fetchRating(discipline_id: number, password: string): Promise<Rating[]> {
+export async function fetchRating(discipline_id: number, user_id:string, password: string): Promise<Rating[]> {
     // const data = localStorage.getItem('brs-tree');
     //localStorage.getItem('brs-tree')
-    const data = await sync_import("0", password);
+    const data = await sync_import(user_id, password);
 
     if (data !== null) {
         let json = JSON.parse(data!) as [];

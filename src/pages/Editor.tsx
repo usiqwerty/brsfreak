@@ -74,8 +74,9 @@ function Editor() {
     }, [subjectIndex, target_brs, treeData]);
     useMemo(async () => {
         const pass = localStorage.getItem("brsfreak-pass")!;
+        const username = localStorage.getItem("brsfreak-username")!;
         setPassword(pass);
-        setTreeData(await fetchRating(1000, pass));
+        setTreeData(await fetchRating(1000, username, pass));
     }, []);
 
     if (treeData[subjectIndex] === undefined)
