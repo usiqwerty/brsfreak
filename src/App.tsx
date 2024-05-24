@@ -21,8 +21,11 @@ import Editor from "./pages/Editor";
 import {Route, Routes} from "react-router-dom";
 import "./css/syle.css";
 import Viewer from "./pages/Viewer";
+import Login from "./pages/Login";
 
 const App = () => {
+    if (localStorage.getItem("brsfreak-pass") == null)
+        return <Login />
     return (
         <>
             <header id={"main-header"}>

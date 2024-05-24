@@ -18,7 +18,7 @@
 
 import {Rating} from "./Rating";
 import React from "react";
-import {parse} from "./api";
+import {parse, sync_export} from "./api";
 
 export async function importFile(e: React.ChangeEvent<HTMLInputElement>, setTreeData: any) {
     e.preventDefault()
@@ -40,10 +40,13 @@ export async function importFile(e: React.ChangeEvent<HTMLInputElement>, setTree
 
 }
 
-export function saveToLocalStorage(treeData: Rating[]) {
+export function saveToServer(treeData: Rating[], password: string) {
     console.log(treeData);
-    localStorage.setItem('brs-tree', JSON.stringify(treeData));
-    // console.log(find_attendance_node(treeData[subjectIndex]));
+    sync_export("0", treeData, password);
+    // localStorage.setItem('brs-tree', JSON.stringify(treeData));
+
+
+    // // console.log(find_attendance_node(treeData[subjectIndex]));
 }
 
 export async function saveFile(data: object) {

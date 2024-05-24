@@ -1,0 +1,7 @@
+#login-form{
+    max-width:500px;
+    display: grid;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 50px;
+}

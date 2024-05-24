@@ -23,7 +23,7 @@ import {fetchRating} from "../tools/api";
 
 import "../css/syle.css";
 import EditorMenu from "../widgets/EditorMenu";
-import {importFile, saveFile, saveToLocalStorage} from "../tools/storage";
+import {importFile, saveFile, saveToServer} from "../tools/storage";
 import {handleSetField} from "../tools/editor";
 
 let data = [] as Rating[];
@@ -33,7 +33,7 @@ function Editor() {
     const [subjectIndex, setSubjectIndex] = useState(0)
     const [target_brs, setTarget_brs] = useState(80);
     const [job, setJob] = useState(100)
-
+    const [password, setPassword] = useState(null! as string);
     function createSubject() {
         treeData.push(new Rating("Новый предмет", 1));
         setTreeData([...treeData]);
@@ -68,21 +68,33 @@ function Editor() {
     }
 
     useEffect(() => {
-        setJob(Math.min(target_brs - treeData[subjectIndex].value(), treeData[subjectIndex].free()));
+        if (subjectIndex<treeData.length)
+            setJob(Math.min(target_brs - treeData[subjectIndex].value(), treeData[subjectIndex].free()));
 
     }, [subjectIndex, target_brs, treeData]);
-    useMemo(() => {
-        setTreeData(fetchRating(1000));
+    useMemo(async () => {
+        const pass = localStorage.getItem("brsfreak-pass")!;
+        setPassword(pass);
+        setTreeData(await fetchRating(1000, pass));
     }, []);
 
     if (treeData[subjectIndex] === undefined)
-        return <>Произошла ошибка (данные предмета undefined)</>
+        return <EditorMenu createSubject={createSubject}
+                           importFile={(event: any) => importFile(event, setTreeData)}
+                           save={() => {
+                               saveToServer(treeData, password);
+                               alert("Saved");
+                           }}
+                           saveFile={saveFile}
+                           selectSubject={selectSubject}
+                           treeData={treeData}/>
+        //return <>Произошла ошибка (данные предмета undefined)</>
 
     return <>
         <EditorMenu createSubject={createSubject}
                     importFile={(event: any) => importFile(event, setTreeData)}
                     save={() => {
-                        saveToLocalStorage(treeData);
+                        saveToServer(treeData, password);
                         alert("Saved");
                     }}
                     saveFile={saveFile}

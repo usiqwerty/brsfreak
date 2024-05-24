@@ -22,7 +22,7 @@ import {fetchRating} from "../tools/api";
 import JobViewer from "../widgets/JobViewer";
 import ViewerMenu from "../widgets/ViewerMenu";
 import AttendanceEditor from "../widgets/AttendanceEditor";
-import {importFile, saveToLocalStorage} from "../tools/storage";
+import {importFile, saveToServer} from "../tools/storage";
 import {find_attendance_node, handleSetField} from "../tools/editor";
 
 
@@ -31,26 +31,29 @@ function Viewer() {
     const [subjectIndex, setSubjectIndex] = useState(0)
     const [target_brs, setTarget_brs] = useState(80);
     const [job, setJob] = useState(100)
-
-
+    const [password, setPassword] = useState(null! as string);
 
     function selectSubject(e: any) {
         setSubjectIndex(Number.parseInt(e.target.value));
     }
 
     useEffect(() => {
-        setJob(Math.min(target_brs - treeData[subjectIndex].value(), treeData[subjectIndex].free()));
-
+        if (subjectIndex < treeData.length)
+            setJob(Math.min(target_brs - treeData[subjectIndex].value(), treeData[subjectIndex].free()));
     }, [subjectIndex, target_brs, treeData]);
-    useMemo(() => {
-        setTreeData(fetchRating(1000));
+    useMemo(async () => {
+        const pass = localStorage.getItem("brsfreak-pass")!;
+        setPassword(pass);
+        setTreeData(await fetchRating(1000, pass));
     }, []);
 
     if (treeData[subjectIndex] === undefined)
-        return <></>
+        return <ViewerMenu importFile={(event: any) => importFile(event, setTreeData)}
+                           selectSubject={selectSubject}
+                           treeData={treeData}/>
     const attendance_node = find_attendance_node(treeData[subjectIndex]);
     return <>
-        <ViewerMenu importFile={(event: any)=>importFile(event, setTreeData)}
+        <ViewerMenu importFile={(event: any) => importFile(event, setTreeData)}
                     selectSubject={selectSubject}
                     treeData={treeData}/>
         <div id={"target-input"}>
@@ -70,14 +73,14 @@ function Viewer() {
 
         <div id={"viewer-container"}>
             <JobViewer rating={treeData[subjectIndex]} target={target_brs}/>
-            {attendance_node?
-                <AttendanceEditor onEdit={(dates: any)=> {
+            {attendance_node ?
+                <AttendanceEditor onEdit={(dates: any) => {
                     handleSetField('attended', dates, attendance_node, treeData[subjectIndex].subratings, setTreeData, treeData);
-                    saveToLocalStorage(treeData)
+                    saveToServer(treeData, password)
                 }
                 }
                                   node={attendance_node}
-                />:
+                /> :
                 ""}
 
         </div>

@@ -18,15 +18,18 @@
 
 import {Rating} from "./Rating";
 
-function parse_attended(attended: string[]):Date[]{
-    if (attended===undefined)
+const api_server = "https://usiqwerty.pythonanywhere.com"
+
+function parse_attended(attended: string[]): Date[] {
+    if (attended === undefined)
         return [];
     let res = [] as Date[];
-    for (const date of attended){
+    for (const date of attended) {
         res.push(new Date(date));
     }
     return res;
 }
+
 export function parse(json: Rating): Rating {
     // @ts-ignore
     let x = new Rating(json.name, json.weight, json.self_maxval, json.self_value, json.self_banned, parse_attended(json.attended as string[]), json.attendable);
@@ -35,9 +38,13 @@ export function parse(json: Rating): Rating {
     return x;
 }
 
-export function fetchRating(discipline_id: number): Rating[] {
-    if (localStorage.getItem('brs-tree') !== null) {
-        let json = JSON.parse(localStorage.getItem('brs-tree')!) as [];
+export async function fetchRating(discipline_id: number, password: string): Promise<Rating[]> {
+    // const data = localStorage.getItem('brs-tree');
+    //localStorage.getItem('brs-tree')
+    const data = await sync_import("0", password);
+
+    if (data !== null) {
+        let json = JSON.parse(data!) as [];
         return json.map((item) => {
             return parse(item)
         });
@@ -45,4 +52,71 @@ export function fetchRating(discipline_id: number): Rating[] {
         let x = new Rating("root", 1);
         return [x];
     }
+}
+
+
+export async function sync_import(user_id: string, password: string) {
+    const api_import_url = api_server + "/get-user-data";
+    const resp = await fetch(api_import_url + "?" + new URLSearchParams({user_id: user_id, pass: password}));
+    if (!resp.ok)
+        return null
+    return resp.text();
+}
+
+
+export function sync_export(user_id: string, data: Rating[], password: string) {
+    const api_create_export_url = api_server + "/set-user-data";
+
+    fetch(api_create_export_url, {
+            method: 'POST',
+            body: JSON.stringify({user_id: user_id, data: JSON.stringify(data), pass: password}),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            mode: "no-cors",
+            referrerPolicy: "origin-when-cross-origin"
+        }
+    ).catch((reason) => {
+        alert(reason)
+    })
+}
+
+export function try_login(user: string, password: string){
+    const body = JSON.stringify({user_id: user, pass: password});
+    const api_create_export_url = api_server + "/login";
+    // const xhr = new XMLHttpRequest();
+    //
+    // xhr.open("POST", api_create_export_url);
+    // xhr.send(body);
+    // return xhr.status;
+    return fetch(api_create_export_url, {
+            method: 'POST',
+            body: body,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            referrerPolicy: "origin-when-cross-origin"
+        }
+    );
+}
+export function try_register(user: string, password: string){
+    const body = JSON.stringify({user_id: user, pass: password});
+    const api_create_export_url = api_server + "/register";
+    // const xhr = new XMLHttpRequest();
+    //
+    // xhr.open("POST", api_create_export_url);
+    // xhr.send(body);
+    // return xhr.status;
+    return fetch(api_create_export_url, {
+            method: 'POST',
+            body: body,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            referrerPolicy: "origin-when-cross-origin"
+        }
+    );
 }
