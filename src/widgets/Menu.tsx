@@ -2,6 +2,11 @@ import {useNavigate} from "react-router-dom";
 import React from "react";
 import {Rating} from "../tools/Rating";
 
+function logout() {
+    localStorage.removeItem("brsfreak-pass");
+    localStorage.removeItem("brsfreak-username");
+    window.location.reload();
+}
 function Menu({treeData, selectSubject, importFile, createSubject=undefined, save=undefined, saveFile=undefined}: {
     treeData: Rating[],
     selectSubject: (e: any) => any,
@@ -32,7 +37,7 @@ function Menu({treeData, selectSubject, importFile, createSubject=undefined, sav
             <input id={"fileimport"} type={"file"} onChange={(e) => importFile(e)}/>
         </button>
         {
-            createSubject != undefined && saveFile!=undefined?
+            createSubject != undefined && saveFile != undefined ?
                 <>
                     <button onClick={createSubject}>Добавить предмет</button>
                     <button onClick={save}>Сохранить на сервер</button>
@@ -40,7 +45,9 @@ function Menu({treeData, selectSubject, importFile, createSubject=undefined, sav
                 </> : ''
         }
 
-
+        <button onClick={logout}>
+            Выйти
+        </button>
     </div>;
 }
 
