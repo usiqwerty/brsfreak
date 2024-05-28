@@ -18,18 +18,6 @@ function Menu({treeData, selectSubject, importFile, createSubject=undefined, sav
             {treeData.map((each, index) => <option value={index} key={index}>{each.name}</option>)}
         </select>
         {
-            createSubject != undefined && saveFile!=undefined?
-                <>
-                    <button onClick={createSubject}>Добавить предмет</button>
-                    <button onClick={save}>Сохранить на сервер</button>
-                    <button onClick={() => saveFile(treeData)}>Экспорт в файл...</button>
-                </> : ''
-        }
-        <button id={'import-btn'}>
-        <label htmlFor="fileimport" className="btn">Загрузить файл...</label>
-            <input id={"fileimport"} type={"file"} onChange={(e) => importFile(e)}/>
-        </button>
-        {
             createSubject == undefined ?
                 <button onClick={() => navigate("/editor")}>
                     Редактировать
@@ -39,6 +27,19 @@ function Menu({treeData, selectSubject, importFile, createSubject=undefined, sav
                     Просмотр
                 </button>
         }
+        <button id={'import-btn'}>
+            <label htmlFor="fileimport" className="btn">Загрузить файл...</label>
+            <input id={"fileimport"} type={"file"} onChange={(e) => importFile(e)}/>
+        </button>
+        {
+            createSubject != undefined && saveFile!=undefined?
+                <>
+                    <button onClick={createSubject}>Добавить предмет</button>
+                    <button onClick={save}>Сохранить на сервер</button>
+                    <button onClick={() => saveFile(treeData)}>Экспорт в файл...</button>
+                </> : ''
+        }
+
 
     </div>;
 }
