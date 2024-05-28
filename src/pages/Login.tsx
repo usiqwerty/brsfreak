@@ -17,7 +17,7 @@ function Login() {
                 if (res.ok) {
                     localStorage.setItem("brsfreak-pass", password);
                     localStorage.setItem("brsfreak-username", user);
-                    navigate('/');
+                    window.location.reload();
                 } else {
                     console.log(res);
                     if (res.status === 401)
