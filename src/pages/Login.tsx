@@ -1,13 +1,11 @@
 import "../css/login.css";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
 import {try_login, try_register} from "../tools/api";
 
 
 function Login() {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
     const [note, setNote] = useState("");
 
     async function login() {
@@ -41,7 +39,6 @@ function Login() {
                     localStorage.setItem("brsfreak-pass", password);
                     localStorage.setItem("brsfreak-username", user);
                     window.location.reload();
-                    // navigate('/');
                 } else {
                     console.log(res);
                     if (res.status === 401)
@@ -59,6 +56,10 @@ function Login() {
     }
 
     return <div>
+        <header id={"login-header"}>
+            <h1>brsfreak</h1>
+            <p>Калькулятор для балльно-рейтинговой системы</p>
+        </header>
         <div id={"login-form"}>
             <input placeholder={"Почта урфу"} value={user} onChange={e => setUser(e.target.value)}/>
             <input placeholder={"Пароль"} type={"password"} value={password}

@@ -17,16 +17,13 @@
 * */
 
 import {BRSRating} from "../widgets/BRSRating";
-import React, {useEffect, useMemo, useState} from "react";
+import React from "react";
 import {Rating} from "../tools/Rating";
-import {fetchRating} from "../tools/api";
 
 import "../css/style.css";
-import {importFile, saveFile, saveToServer} from "../tools/storage";
+import {importFile, saveFile} from "../tools/storage";
 import {handleSetField} from "../tools/editor";
 import Menu from "../widgets/Menu";
-
-let data = [] as Rating[];
 
 function Editor({treeData, setTreeData, setSubjectIndex, subjectIndex, target_brs, setTarget_brs, job, saveToServer}: {
     treeData: Rating[],

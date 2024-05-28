@@ -72,7 +72,7 @@ export function BRSRating({node, onAddChild, onDelete, onEdit, job}: {
                                  size={3}/>
                         (нужно еще {truncateToTwo(job)})
                         <div>
-                            -<input value={node.banned()}
+                            Потеряно <input value={node.banned()}
                                     onChange={(e) => onEdit('self-banned', e.target.value, node)} size={3}/>
                         </div>
                         <span>

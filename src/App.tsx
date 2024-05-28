@@ -43,9 +43,11 @@ const App = () => {
     useMemo(async () => {
         const pass = localStorage.getItem("brsfreak-pass")!;
         const new_username = localStorage.getItem("brsfreak-username")!;
-        setPassword(pass);
-        setUsername(new_username);
-        setTreeData(await fetchRating(1000, new_username, pass));
+        if (pass !=null) {
+            setPassword(pass);
+            setUsername(new_username);
+            setTreeData(await fetchRating(1000, new_username, pass));
+        }
     }, []);
     if (localStorage.getItem("brsfreak-pass") == null)
         return <Login/>

@@ -4,4 +4,11 @@
     margin-right: auto;
     margin-left: auto;
     padding: 50px;
+    gap:5px;
+}
+#login-header{
+    margin-left:auto;
+    margin-right:auto;
+    width:fit-content;
+    text-align: center;
 }

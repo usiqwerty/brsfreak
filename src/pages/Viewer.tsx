@@ -16,12 +16,11 @@
 *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 * */
 
-import React, {useEffect, useMemo, useState} from "react";
+import React from "react";
 import {Rating} from "../tools/Rating";
-import {fetchRating} from "../tools/api";
 import JobViewer from "../widgets/JobViewer";
 import AttendanceEditor from "../widgets/AttendanceEditor";
-import {importFile, saveToServer} from "../tools/storage";
+import {importFile} from "../tools/storage";
 import {find_attendance_node, handleSetField} from "../tools/editor";
 import Menu from "../widgets/Menu";
 
