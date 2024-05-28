@@ -17,7 +17,7 @@
 * */
 
 import React from 'react';
-import "../css/syle.css";
+import "../css/style.css";
 import {Rating} from "../tools/Rating";
 import "../css/BRSRating.css"
 import "../css/mobile.css";

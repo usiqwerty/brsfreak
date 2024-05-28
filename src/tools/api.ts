@@ -18,8 +18,8 @@
 
 import {Rating} from "./Rating";
 
-const api_server = "https://usiqwerty.pythonanywhere.com"
-
+// const api_server = "https://usiqwerty.pythonanywhere.com"
+const api_server = "http://192.168.1.184:5000";
 function parse_attended(attended: string[]): Date[] {
     if (attended === undefined)
         return [];

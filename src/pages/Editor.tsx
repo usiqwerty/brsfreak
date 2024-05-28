@@ -21,7 +21,7 @@ import React, {useEffect, useMemo, useState} from "react";
 import {Rating} from "../tools/Rating";
 import {fetchRating} from "../tools/api";
 
-import "../css/syle.css";
+import "../css/style.css";
 import EditorMenu from "../widgets/EditorMenu";
 import {importFile, saveFile, saveToServer} from "../tools/storage";
 import {handleSetField} from "../tools/editor";

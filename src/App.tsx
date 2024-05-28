@@ -19,7 +19,7 @@
 import React from 'react';
 import Editor from "./pages/Editor";
 import {Route, Routes} from "react-router-dom";
-import "./css/syle.css";
+import "./css/style.css";
 import Viewer from "./pages/Viewer";
 import Login from "./pages/Login";
 

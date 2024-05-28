@@ -1,7 +1,7 @@
 import {Rating} from "../tools/Rating";
 import {useEffect, useState} from "react";
 import Task from "./Task";
-import "../css/syle.css";
+import "../css/style.css";
 import "../css/mobile.css";
 
 type JobTask = { name: string, amount: number, parent: string | null };
