@@ -21,7 +21,7 @@ function Menu({treeData, selectSubject, importFile, createSubject=undefined, sav
             createSubject != undefined && saveFile!=undefined?
                 <>
                     <button onClick={createSubject}>Добавить предмет</button>
-                    <button onClick={save}>Сохранить</button>
+                    <button onClick={save}>Сохранить на сервер</button>
                     <button onClick={() => saveFile(treeData)}>Экспорт в файл...</button>
                 </> : ''
         }

@@ -26,38 +26,29 @@ import {find_attendance_node, handleSetField} from "../tools/editor";
 import Menu from "../widgets/Menu";
 
 
-function Viewer() {
-    const [treeData, setTreeData] = useState([] as Rating[]);
-    const [subjectIndex, setSubjectIndex] = useState(0)
-    const [target_brs, setTarget_brs] = useState(80);
-    const [job, setJob] = useState(100)
-    const [password, setPassword] = useState(null! as string);
-    const [username, setUsername] = useState(null! as string);
+function Viewer({treeData, setTreeData, setSubjectIndex, subjectIndex, target_brs, setTarget_brs, job, saveToServer}: {
+    treeData: Rating[],
+    setTreeData: any,
+    setSubjectIndex: any,
+    subjectIndex: number,
+    target_brs: any,
+    setTarget_brs: any,
+    job: number,
+    saveToServer: any
+}) {
     function selectSubject(e: any) {
         setSubjectIndex(Number.parseInt(e.target.value));
     }
 
-    useEffect(() => {
-        if (subjectIndex < treeData.length)
-            setJob(Math.min(target_brs - treeData[subjectIndex].value(), treeData[subjectIndex].free()));
-    }, [subjectIndex, target_brs, treeData]);
-    useMemo(async () => {
-        const pass = localStorage.getItem("brsfreak-pass")!;
-        const new_username = localStorage.getItem("brsfreak-username")!;
-        setPassword(pass);
-        setUsername(new_username);
-        setTreeData(await fetchRating(1000, new_username, pass));
-    }, []);
-
     if (treeData[subjectIndex] === undefined)
         return <Menu importFile={(event: any) => importFile(event, setTreeData)}
-                           selectSubject={selectSubject}
-                           treeData={treeData}/>
+                     selectSubject={selectSubject}
+                     treeData={treeData}/>
     const attendance_node = find_attendance_node(treeData[subjectIndex]);
     return <>
         <Menu importFile={(event: any) => importFile(event, setTreeData)}
-                    selectSubject={selectSubject}
-                    treeData={treeData}/>
+              selectSubject={selectSubject}
+              treeData={treeData}/>
         <div id={"target-input"}>
                 <span>
                     Цель <input size={3} name={"target_brs"} onChange={(e) => {
@@ -78,7 +69,7 @@ function Viewer() {
             {attendance_node ?
                 <AttendanceEditor onEdit={(dates: any) => {
                     handleSetField('attended', dates, attendance_node, treeData[subjectIndex].subratings, setTreeData, treeData);
-                    saveToServer(treeData, username, password)
+                    saveToServer();
                 }
                 }
                                   node={attendance_node}

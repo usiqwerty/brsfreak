@@ -28,13 +28,17 @@ import Menu from "../widgets/Menu";
 
 let data = [] as Rating[];
 
-function Editor() {
-    const [treeData, setTreeData] = useState(data);
-    const [subjectIndex, setSubjectIndex] = useState(0)
-    const [target_brs, setTarget_brs] = useState(80);
-    const [job, setJob] = useState(100)
-    const [password, setPassword] = useState(null! as string);
-    const [username, setUsername] = useState(null! as string);
+function Editor({treeData, setTreeData, setSubjectIndex, subjectIndex, target_brs, setTarget_brs, job, saveToServer}: {
+    treeData: Rating[],
+    setTreeData: any,
+    setSubjectIndex: any,
+    subjectIndex: number,
+    target_brs: any,
+    setTarget_brs: any,
+    job: number,
+    saveToServer: any
+}) {
+
     function createSubject() {
         treeData.push(new Rating("Новый предмет", 1));
         setTreeData([...treeData]);
@@ -68,24 +72,11 @@ function Editor() {
         })
     }
 
-    useEffect(() => {
-        if (subjectIndex<treeData.length)
-            setJob(Math.min(target_brs - treeData[subjectIndex].value(), treeData[subjectIndex].free()));
-
-    }, [subjectIndex, target_brs, treeData]);
-    useMemo(async () => {
-        const pass = localStorage.getItem("brsfreak-pass")!;
-        const new_username = localStorage.getItem("brsfreak-username")!;
-        setPassword(pass);
-        setUsername(new_username);
-        setTreeData(await fetchRating(1000, new_username, pass));
-    }, []);
-
     if (treeData[subjectIndex] === undefined)
         return <Menu createSubject={createSubject}
                            importFile={(event: any) => importFile(event, setTreeData)}
                            save={() => {
-                               saveToServer(treeData, username, password);
+                               saveToServer();
                                alert("Saved");
                            }}
                            saveFile={saveFile}
@@ -97,7 +88,7 @@ function Editor() {
         <Menu createSubject={createSubject}
                     importFile={(event: any) => importFile(event, setTreeData)}
                     save={() => {
-                        saveToServer(treeData, username, password);
+                        saveToServer();
                         alert("Saved");
                     }}
                     saveFile={saveFile}
