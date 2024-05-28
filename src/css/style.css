@@ -7,3 +7,6 @@
 #fileimport {
     display: none;
 }
+#subject_select{
+    width:10em;
+}

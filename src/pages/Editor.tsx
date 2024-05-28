@@ -22,9 +22,9 @@ import {Rating} from "../tools/Rating";
 import {fetchRating} from "../tools/api";
 
 import "../css/style.css";
-import EditorMenu from "../widgets/EditorMenu";
 import {importFile, saveFile, saveToServer} from "../tools/storage";
 import {handleSetField} from "../tools/editor";
+import Menu from "../widgets/Menu";
 
 let data = [] as Rating[];
 
@@ -82,7 +82,7 @@ function Editor() {
     }, []);
 
     if (treeData[subjectIndex] === undefined)
-        return <EditorMenu createSubject={createSubject}
+        return <Menu createSubject={createSubject}
                            importFile={(event: any) => importFile(event, setTreeData)}
                            save={() => {
                                saveToServer(treeData, username, password);
@@ -94,7 +94,7 @@ function Editor() {
         //return <>Произошла ошибка (данные предмета undefined)</>
 
     return <>
-        <EditorMenu createSubject={createSubject}
+        <Menu createSubject={createSubject}
                     importFile={(event: any) => importFile(event, setTreeData)}
                     save={() => {
                         saveToServer(treeData, username, password);

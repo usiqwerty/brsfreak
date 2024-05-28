@@ -20,10 +20,10 @@ import React, {useEffect, useMemo, useState} from "react";
 import {Rating} from "../tools/Rating";
 import {fetchRating} from "../tools/api";
 import JobViewer from "../widgets/JobViewer";
-import ViewerMenu from "../widgets/ViewerMenu";
 import AttendanceEditor from "../widgets/AttendanceEditor";
 import {importFile, saveToServer} from "../tools/storage";
 import {find_attendance_node, handleSetField} from "../tools/editor";
+import Menu from "../widgets/Menu";
 
 
 function Viewer() {
@@ -50,12 +50,12 @@ function Viewer() {
     }, []);
 
     if (treeData[subjectIndex] === undefined)
-        return <ViewerMenu importFile={(event: any) => importFile(event, setTreeData)}
+        return <Menu importFile={(event: any) => importFile(event, setTreeData)}
                            selectSubject={selectSubject}
                            treeData={treeData}/>
     const attendance_node = find_attendance_node(treeData[subjectIndex]);
     return <>
-        <ViewerMenu importFile={(event: any) => importFile(event, setTreeData)}
+        <Menu importFile={(event: any) => importFile(event, setTreeData)}
                     selectSubject={selectSubject}
                     treeData={treeData}/>
         <div id={"target-input"}>
